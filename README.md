@@ -2,7 +2,9 @@
 
 ## Scope
 
-This repostory is for a Red Hat [UBI][ubi] image to host and mirror a specific file via `nginx`.
+This repository is for a Red Hat [UBI][ubi] image to host and mirror a specific file via `nginx`.
+
+I streamed making this container [here](https://youtu.be/v44EmFfC6Ns).
 
 ## Usage
 
@@ -15,7 +17,7 @@ This repostory is for a Red Hat [UBI][ubi] image to host and mirror a specific f
 ### Running on k8s
 
 1. Clone down the repo
-1. Run `docker build -t quay.io/jjasghar/ubi-nginx-mirror .` **Note**
+1. Run `docker build -t quay.io/jjasghar/ubi-nginx-mirror .` **Note**: You probably want to push it to your own registry.
 1. Edit the [deployment.yaml](k8s/ubi-nginx-mirror-deployment.yaml) with your container you built above, and change the `URL_FILE` to the file you want to mirror.
 1. Run `kubectl apply -f k8s/ubi-nginx-mirror-deployment.yaml`
 
