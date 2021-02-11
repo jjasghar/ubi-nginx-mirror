@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubi-nginx-mirror
+  labels:
+    app: ubi-nginx-mirror
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubi-nginx-mirror
+  template:
+    metadata:
+      labels:
+        app: ubi-nginx-mirror
+    spec:
+      containers:
+        - name: ubi-nginx-mirror
+          image: quay.io/jjasghar/ubi-nginx-mirror:latest
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+          env:
+            - name: URL_FILE
+              value: https://google.com/blank.html
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ubi-nginx-mirror-service
+spec:
+  selector:
+    app: ubi-nginx-mirror
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30000
